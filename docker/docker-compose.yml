@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: floatchat-db
+    restart: always
+    environment:
+      POSTGRES_USER: floatuser
+      POSTGRES_PASSWORD: floatpassword
+      POSTGRES_DB: floatchat
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U floatuser -d floatchat"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: floatchat-backend
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://floatuser:floatpassword@db:5432/floatchat
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_API_BASE=${OPENAI_API_BASE}
+      - LLM_MODEL_NAME=${LLM_MODEL_NAME}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../backend:/app
+      - ../data:/app/data
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    container_name: floatchat-frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

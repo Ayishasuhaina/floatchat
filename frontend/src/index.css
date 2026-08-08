@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #030712;
+    color: #f3f4f6;
+  }
+}
+
+/* Glassmorphism CSS Utilities */
+.glass {
+  background: rgba(11, 21, 40, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.08);
+}
+
+.glass-card {
+  background: rgba(11, 21, 40, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(56, 189, 248, 0.1);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  background: rgba(11, 21, 40, 0.85);
+  border-color: rgba(56, 189, 248, 0.25);
+  box-shadow: 0 16px 45px -12px rgba(56, 189, 248, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Glowing Indicator */
+.glow-dot {
+  box-shadow: 0 0 8px 1.5px rgba(16, 185, 129, 0.75);
+}
+
+/* Gradient Glowing Text */
+.gradient-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Page fade-in utility */
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Customized scrollbars for the chat container */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(11, 21, 40, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.45);
+}
+
+/* Map specific tweaks to overlay controls cleanly */
+.leaflet-container {
+  font-family: inherit;
+  border-radius: 0.75rem;
+  z-index: 10;
+}
+
+/* Custom map popup overrides */
+.leaflet-popup-content-wrapper {
+  background: rgba(15, 23, 42, 0.95) !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(56, 189, 248, 0.2) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 12px !important;
+  padding: 4px !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.2) !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: #94a3b8 !important;
+  padding: 6px 12px 0 0 !important;
+}
+
+/* Spin animation speed overrides */
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+/* Background floating particle styling */
+.ocean-grid-bg {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(56, 189, 248, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.02) 1px, transparent 1px);
+}
